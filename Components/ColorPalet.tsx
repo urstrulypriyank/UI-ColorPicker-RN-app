@@ -1,13 +1,12 @@
 import {StyleSheet, Text, View} from 'react-native';
+
 import React, {useState} from 'react';
 
 const colorPalet = props => {
-  const [bgColor, setBgColor] = useState(props.randomBgGenrator());
   return (
-    <View>
-      <View style={[styles.circle, {backgroundColor: bgColor}]}></View>
-      <Text style={styles.circleText} selectable>
-        {bgColor}
+    <View style={[styles.circle, {backgroundColor: props.randomBgGenrator}]}>
+      <Text style={styles.circleText} selectable={true}>
+        {props.randomBgGenrator}
       </Text>
     </View>
   );
@@ -19,7 +18,7 @@ const styles = StyleSheet.create({
   circle: {
     borderColor: 'black',
     borderRadius: 100,
-    width: 90,
+    width: 180,
     height: 90,
     backgroundColor: 'white',
     justifyContent: 'center',
@@ -28,7 +27,8 @@ const styles = StyleSheet.create({
   },
   circleText: {
     color: 'black',
-    fontSize: 20,
+    fontSize: 15,
     fontWeight: 'bold',
+    padding: 5,
   },
 });

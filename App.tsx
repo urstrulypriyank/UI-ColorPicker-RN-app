@@ -9,58 +9,32 @@ import {
   TouchableOpacity,
   useColorScheme,
   View,
+  FlatList,
 } from 'react-native';
-
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
 
 function App(): JSX.Element {
   const [bgColor, setBgColor] = useState('#FFFFFF');
+  const [flag, setFlag] = useState(true);
   const randomBgGenrator = () => {
     let color = '#';
     const textRange = '0123456789ABCDEF';
     for (let i = 0; i < 6; i++) {
       color += textRange[Math.floor(Math.random() * 16)];
     }
-    // console.log(color);
-    // setBgColor(color);
     return color;
   };
+
+  const [hexData, setHexData] = useState([]);
+  const setData = () => {
+    let arr = [];
+    for (let i = 0; i < 500; i++) {
+      arr.push(randomBgGenrator());
+    }
+    setHexData([...arr]);
+  };
+  useEffect(() => {
+    setData();
+  }, []);
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -71,20 +45,19 @@ function App(): JSX.Element {
           <TouchableOpacity
             style={{...styles.btn, margin: 10}}
             onPress={() => {
-              randomBgGenrator();
+              setData();
             }}>
             <Text>Click Me To Genrate new color</Text>
           </TouchableOpacity>
         </View>
-        <ScrollView>
-          <View style={styles.colorPaletContainer}>
-            <ColorPalet randomBgGenrator={randomBgGenrator} />
-            <ColorPalet randomBgGenrator={randomBgGenrator} />
-            <ColorPalet randomBgGenrator={randomBgGenrator} />
-            <ColorPalet randomBgGenrator={randomBgGenrator} />
-            <ColorPalet randomBgGenrator={randomBgGenrator} />
-          </View>
-        </ScrollView>
+
+        <FlatList
+          data={hexData}
+          renderItem={({item}) => <ColorPalet randomBgGenrator={item} />}
+          keyExtractor={item => item}
+          style={styles.colorPaletContainer}
+          numColumns={2}
+        />
       </View>
     </SafeAreaView>
   );
@@ -92,6 +65,7 @@ function App(): JSX.Element {
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
+    alignItems: 'center',
   },
   btn: {
     backgroundColor: 'grey',
@@ -104,7 +78,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   colorPaletContainer: {
-    flex: 1,
+    // flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
     margin: 10,
