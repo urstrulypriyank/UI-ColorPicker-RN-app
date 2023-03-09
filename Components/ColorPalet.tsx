@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
 import React, {useState} from 'react';
 
@@ -35,5 +35,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: 'bold',
     padding: 5,
+    textAlign: 'center',
   },
 });
