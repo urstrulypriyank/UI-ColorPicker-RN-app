@@ -4,7 +4,12 @@ import React, {useState} from 'react';
 
 const colorPalet = props => {
   return (
-    <View style={[styles.circle, {backgroundColor: props.randomBgGenrator}]}>
+    <View>
+      <View
+        style={[
+          styles.circle,
+          {backgroundColor: props.randomBgGenrator},
+        ]}></View>
       <Text style={styles.circleText} selectable={true}>
         {props.randomBgGenrator}
       </Text>

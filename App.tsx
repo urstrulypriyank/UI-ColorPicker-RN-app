@@ -2,19 +2,16 @@ import React, {useEffect, useState} from 'react';
 import ColorPalet from './Components/ColorPalet';
 import {
   SafeAreaView,
-  ScrollView,
   StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
-  useColorScheme,
   View,
   FlatList,
 } from 'react-native';
 
 function App(): JSX.Element {
   const [bgColor, setBgColor] = useState('#FFFFFF');
-  const [flag, setFlag] = useState(true);
   const randomBgGenrator = () => {
     let color = '#';
     const textRange = '0123456789ABCDEF';
@@ -78,7 +75,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   colorPaletContainer: {
-    // flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
     margin: 10,
